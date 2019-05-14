@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>MusicList</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+	<script src="https://lib.baomitu.com/vue/2.6.10/vue.min.js"></script>
+	<script src="js/jquery-3.3.1.js"></script>
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/progress.js"></script>
+	<script src="js/lyric.js"></script>
+  <script src="js/music.js"></script>
+  <script src="./js/bootstrap.js"></script>
+	<link rel="stylesheet" href="css/musicList.css">
+	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+</head>
+<body>
+	<div id="app">
+	<header>
+		<h1 class="logo"><a href="#"></a></h1>
+		<ul class="register">
+			<li>登录</li>
+			<li>注册</li>
+		</ul>
+	</header>
+	<section>
+		<div class="content_in">
+			<div class="content_left">
+				<div class="content_toolbar">
+					<span><i></i>收藏</span>
+					<span><i></i>添加到</span>
+					<span><i></i>下载</span>
+					<span><i></i>删除</span>
+					<span><i></i>清空列表</span>
+				</div>
+				<div class="content_list" data-mcs-theme="minimal-dark">
+					<ul>
+						<li class="list_title">
+							<div class="list_check"><i></i></div>
+							<div class="list_number"></div>
+							<div class="list_name">歌曲</div>
+							<div class="list_singer">歌手</div>
+							<div class="list_time">时长</div>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="content_right">
+				<div class="song_info">
+					<a href="javascript:;" class="song_info_pic">
+						<img src="" alt="">
+					</a>
+					<div class="song_info_name">歌曲名称：
+						<a href="javascript:;"></a>
+					</div>
+					<div class="song_info_singer">歌手名：
+						<a href="javascript:;"></a>
+					</div>
+					<div class="song_info_ablum">专辑名：
+						<a href="javascipt:;"></a>
+					</div>
+				</div>
+				<div class="song_lyric_container">
+					<ul class="song_lyric">
+					
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="footer_in">
+			<a href="javascript:;" class="music_pre"></a>
+			<a href="javascript:;" class="music_play"></a>
+			<a href="javascript:;" class="music_next"></a>
+			<div class="music_progress_info">
+				<div class="music_progress_top">
+					<span class="music_progress_name"></span>
+					<span class="music_progress_time"></span>
+				</div>
+				<div class="music_progress_bar">
+					<div class="music_progress_line">
+						<div class="music_progress_dot"></div>
+					</div>
+				</div>
+			</div>
+			<a href="javascript:;" class="music_mode"></a>
+			<a href="javascript:;" class="music_fav"></a>
+			<a href="javascript:;" class="music_down"></a>
+			<a href="javascript:;" class="music_comment"></a>
+			<a href="javascript:;" class="music_only"></a>
+			<div class="music_voice_info">
+				<a href="javascript:;" class="music_voice_icon"></a>
+				<div class="music_voice_bar">
+					<div class="music_voice_line">
+						<div class="music_voice_dot"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div class="mask_bg"><img src="http://p2.music.126.net/_thXE9xYXXVN_8MXzzD5_A==/109951163942945643.jpg" alt=""></div>
+  <div class="mask"></div>
+  <div class="addList">
+      <ul class="addList_ul">
+        
+      </ul>
+      <a href="javascript:;" class="newList"><i class="add"></i> 添加到新歌单</a>
+    </div>
+  <audio src="" id="aud"></audio>
+  <form class="addlist add_list form-horizontal">
+    <h1>创建新歌单</h1>
+    <div class="form-group form-content">
+      <label>歌单名</label>
+      <input type="text" class="listname">
+    </div>
+    <div class="submit">
+      <input type="button" value="确定" class="btn btn-default request">
+      <input type="button" value="取消" class="btn btn-default cancel">
+    </div>
+  </div>
+</form>
+    
+    <script></script>
+</body>
+</html>

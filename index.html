@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐乐园</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="css/login.css"> -->
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/model.css">
+    <script src="/dist/bundle.js"></script>
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/player.js"></script>
+    <script src="/js/progress.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+  
+</head>
+<body>
+	<div class="container">
+		<header>
+			<!-- 头部导航条部分 -->
+			<div class="nav-box">
+				
+			</div> <!-- /.nav-box -->
+			<!-- 头部导航条部分 -->
+			
+			<!-- 轮播图部分 -->
+			<div class="banner">
+				<div class="banner-slider">
+					<div class="slider-main">
+						<div class="slider-main-img"><a href="#"><img src="/img/lunbo1.jpg" alt=""></a></div>
+						<div class="slider-main-img"><a href="#"><img src="/img/lunbo2.jpg" alt=""></a></div>
+						<div class="slider-main-img"><a href="#"><img src="/img/lunbo3.jpg" alt=""></a></div>
+					</div>
+				<div class="slider-ctrl">
+					<span class="slider-ctrl-prev"></span>
+					<span class="slider-ctrl-next"></span>
+				</div>
+				</div>
+			</div>
+			<!-- 轮播图部分 -->
+
+    </header>
+
+    <section id="app2">
+      <div class="section-head">
+        <h1 class="title">歌单推荐</h1>
+        <div class="section-tj">
+            <div class="flex-list">
+              <div class="list-box" v-for="item in list">
+                <div class="gd-cover coverMask">
+                    <img :src="item.coverImgUrl" class="imgCover">
+                    <div class="mask">
+                        <a href="javascript:;" class="play" @click="musicPlay(item.id)"></a>
+                    </div>
+                </div>
+                <div class="name">{{item.name}}</div>
+                <p class="num">播放量: {{item.playCount}}</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+		<!-- 热门歌曲推荐 -->
+		<section id="app">
+			<div class="section-head">
+          <h1 class="title">新歌推荐</h1>
+				<div class="section-tj">
+					<div class="col-sm-6 col-md-3 album" v-for="item in list">
+						<div class="tj-cover">
+							<div class="tj-play coverMask">
+								<img :src=item.song.album.picUrl alt="">
+								<div class="mask">
+									<a href="javascript:;" class="play" @click="musicPlay(item.id)"></a>
+								</div>
+							</div>
+							
+							<div class="name">{{item.name}}</p>
+							<p>{{item.song.artists[0].name}}</p>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="musicPlay">
+					<audio src='' ref="player"></audio>
+				</div>
+			</div>
+    </section>
+
+		<!-- 每日MV推荐 -->
+		<section id="mv">
+			<h2>每日MV</h2>
+			<div class="mv-main">
+				<div class="mv-main-fll">
+					<div class="mv-group">
+						<div class="mv-group-pd">
+							<div class="mv-title"><h3>Stage第2季 11期 落日飞车 一切都再好不过了</h3>
+							<span class="name"><a href="#">落日飞车</a></span>
+							</div>
+							<div class="mv">
+								<div class="player">
+									<video class="media" :src="url"></video>
+									<!-- MV播放和暂停控制 -->
+									<div class="play-big"><a href="javascript:;"></a></div> 
+								</div>
+								
+								<div class="controls">
+									<div class="controls-wrap">
+										<div class="control-play">
+											<a href="javascript:;" class="play-sm"></a>
+										</div>
+										<div class="control-time">
+											<span class="current-time">00:00</span>
+										</div>
+										<div class="progress-wrap">
+											<div class="progress-box">
+												<div class="progress">
+													<div class="progress-out">
+											
+													</div>
+													<div class="in">
+														<span class="dot"></span>
+													</div>
+												</div>
+											
+											</div>
+											
+										</div>
+										<div class="control-time">
+											<span class="over-time">00:00</span>
+										</div>
+										<div class="volume-wrap">
+											<div class="volume-control">
+												<div class="volume-main">
+													
+													<div class="volume-progress">
+														<div class="volume-out">
+															
+														</div>
+														<div class="in">
+															<span class="volumDot"></span>
+														</div>
+													</div>
+												
+												</div>
+
+												<div class="triangle"></div>
+											</div>
+											<span class="volume"></span>
+										</div>
+										<div class="mrs-wrap">
+											<span class="mrs">高清</span>
+										</div>
+										<div class="v-full">
+											<span class="full"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mv-main-fr">
+					<div class="mv-group2">
+						<div class="mv-info">
+							<h3>MV简介</h3>
+							<div class="info2">
+								<div>
+									<span pull-time>发布时间:</span>
+									<span>2019-01-14</span>
+								</div>
+								<div>
+									<span play-num>播放次数:</span>
+									<span>96万次</span>
+								</div>
+							</div>
+							<span class="info3">
+								爱总是会教会我们很多事，关于幸福，成长，安全感，这些我们时常谈起却无法透彻理解的词汇，他们有时都是爱的折射。无论多么疲惫的时候，只要能感受爱意，就是再好不过的事吧。Stage最新一期节目，请听落日飞车的浪漫赫兹。
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- 页脚 -->
+		<footer class="footer">
+		</footer>
+
+    <!-- 登录页面 -->
+		<div class="login">
+		</div>
+		
+  </div>
+  
+  <script src="/js/model.js"></script>
+
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/animate.js"></script>
+	<script src="/js/slider.js"></script>
+	<script src="/js/index.js"></script>
+	<script>
+    axios.defaults.baseURL = 'http://127.0.0.1:3000';
+    var mv = new Vue({
+      el:"#mv",
+      data:{
+        url:''
+      },
+      created(){
+        this.getMV();
+      },
+      methods:{
+        getMV(){
+          axios.get('/mv/url?id=10850095').then(res => {
+            this.url = res.data.data.url;
+          })
+        }
+      },
+     
+    })
+    var vm2 = new Vue({
+			el:'#app2',
+			data:{
+        list:[],
+				url:'',
+				player:null
+			},
+			created(){
+				this.getListInfo();
+			},
+			methods:{
+				getListInfo(){
+					axios.get('/top/playlist',{
+						params:{
+              limit:5
+						}
+					}).then(res => {
+						for(var i=0; i<5; i++){
+							this.list.push(res.data.playlists[i])
+						}
+						console.log(this.list)
+					})
+				},
+				musicPlay(id){
+          sessionStorage.songlistID=id;
+          window.open("./musicList.html")
+					axios.get('/song/url',{
+						params:{
+							id:id
+						}
+					}).then(res => {
+						this.player = this.$refs.player
+						this.$refs.player.setAttribute("src",res.data.data[0].url)
+						this.player.play()
+					})
+				}
+			}
+		})
+		var vm = new Vue({
+			el:'#app',
+			data:{
+        list:[],
+        listGD:[],
+				url:'',
+				player:null
+			},
+			created(){
+				this.getListInfo();
+			},
+			methods:{
+				getListInfo(){
+					axios.get('/personalized/newsong',{
+						params:{
+							limit:5
+						}
+					}).then(res => {
+						for(var i=0; i<8; i++){
+							this.list.push(res.data.result[i])
+						}
+						console.log(this.list)
+					})
+				},
+				musicPlay(id){
+					axios.get('/song/url',{
+						params:{
+							id:id
+						}
+					}).then(res => {
+						this.player = this.$refs.player
+						this.$refs.player.setAttribute("src",res.data.data[0].url)
+						play();
+					})
+				}
+			}
+		})
+	</script>
+</body>
+</html>

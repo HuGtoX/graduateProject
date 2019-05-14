@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="./css/userInfo.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="./css/model.css">
+  <script src="./js/jquery-3.3.1.js"></script>
+  <script src="/js/userInfo.js"></script>
+  <script src="/js/login.js"></script>
+  <script src="/js/bodyclick.js"></script>
+  <script src="./js/bootstrap.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+  <div class="container">
+    <header> 
+			<!-- 头部导航条部分 -->
+			<div class="nav-box">
+          
+        </div> <!-- /.nav-box -->
+      <!-- 头部导航条部分 -->
+      <div class="banner">
+        <div class="banner-box">
+          <div class="user-tx"><img src="img/tx.jpg" alt=""></div>
+          <span class="username">name</span>
+        </div>
+        <div class="banner-nav">
+          <div class="nav-inner">
+            <a href="javascript:;" class="active">我喜欢</a>
+            <a href="javascript:;">我的歌单</a>
+            <a href="javascript:;">关注</a>
+            <a href="javascript:;">粉丝</a>
+          </div>
+        </div>
+      </div>
+    </head>
+    
+    <section class="section-main" id="love">
+      <nav class="like-nav">  
+        <a href="#" class="active">歌曲</a>
+        <a href="#">歌单</a>
+        <a href="#">专辑</a>
+        <a href="#">视频</a>
+      </nav>
+      <div class="song-list">
+          <div class="tools">
+              <a href="#" class="play link">
+                <span></span>播放全部
+              </a>
+              <a href="#" class="add">
+                  <span></span>添加到
+              </a>
+              <a href="#" class="loaddown">
+                  <span></span>下载
+              </a>
+              <a href="#" class="operate">
+                  <span></span>批量操作
+              </a>
+            </div>
+        <ul>
+          <li class="title">
+            <div class="song">歌曲</div>
+            <div class="singer">歌手</div>
+            <div class="album">专辑</div>
+            <div class="time">时长</div>
+          </li>
+          <li class="list-content">
+              <div class="song">歌曲
+                <div class="list_menu">
+                  <a href="#"></a>
+                  <a href="#"></a>
+                  <a href="#"></a>
+                  <a href="#"></a>
+                </div>
+              </div>
+              <div class="singer">歌手</div>
+              <div class="album">专辑</div>
+              <div class="time">时长</div>
+          </li>
+          <li class="list-content">
+              <div class="song">歌曲
+                <div class="list_menu">
+                  <a href="#" class='list_menu_play'></a>
+                  <a href="#"></a>
+                  <a href="#"></a>
+                  <a href="#"></a>
+                </div>
+              </div>
+              <div class="singer">歌手</div>
+              <div class="album">专辑</div>
+              <div class="time">时长</div>
+          </li>
+            
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-main" id="list">
+        <div class="flex-list myList">
+            
+        </div>
+    </section>
+    
+    <div class="login"></div>
+    <footer class="footer"></footer>
+  </div>
+
+  <script src="/js/model.js"></script>
+</body>
+</html>

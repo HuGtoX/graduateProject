@@ -1,0 +1,265 @@
+a,a:hover,a:link{
+  text-decoration: none;
+}
+.banner{
+  width: 100%;
+  height: 380px;
+  background: url(../img/userBanner.jpg) no-repeat 50% 56%;
+  /* background-size: cover; */
+  font-size:18px;
+  color: #fff;
+  position: relative;
+}
+
+.banner-box{
+  width: 200px;
+  margin: 0 auto;
+  padding-top: 50px;
+  text-align: center;
+}
+.banner-box .user-tx{
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  overflow: hidden;
+  margin: 10px auto;
+}
+.banner-box .user-tx img{
+  width: 100%;
+  height: 100%;
+}
+
+.banner-nav{
+  width: 100%;
+  height: 46px;
+  background:rgba(0,0,0,0.25);
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+}
+.banner-nav .nav-inner{
+  max-width: 1200px;
+  padding: 0 20px;
+  height: 100%;
+  margin: 0 auto;
+}
+.banner-nav a{
+  font-size: 16px;
+  display: inline-block;
+  line-height: 46px;
+  margin-right: 40px;
+  color: #fff;
+}
+
+.section-main{
+  font-size: 16px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* background: #ccc; */
+}
+
+.section-main .like-nav{
+  width: 100%;
+  height: 40px;
+}
+
+.section-main .like-nav a{
+  color: #000;
+  line-height: 40px;
+  margin-right: 40px;
+}
+
+.active{
+  color:rgb(179, 207, 17) !important;
+}
+
+.section-main .song-list{
+  width: 100%;
+  margin-top: 20px;
+}
+
+.section-main .song-list ul{
+  margin-top: 20px;
+  width: 100%;
+}
+.section-main .song-list ul li{
+  list-style-type: none;
+  width: 100%;
+  height: 50px;
+  display: inline-flex;
+  padding-left: 20px;
+}
+.section-main .song-list ul li:nth-child(odd){
+  background: rgba(218, 235, 191,0.5);
+}
+
+
+.section-main .song-list ul li>div{
+  display: inline-block;
+  line-height: 50px;
+}
+.section-main .song-list ul li .song{
+  flex: 5 1 auto;
+  position: relative;
+}
+.section-main .song-list ul li .singer{
+  flex: 2 1 auto;
+}
+.section-main .song-list ul li .album{
+  flex: 2 1 auto;
+}
+.section-main .song-list ul li .time{
+  flex: 1 1 auto;
+}
+.section-main .song-list .tools a{
+  display: inline-block;
+  line-height: 40px;
+  width: 140px;
+  text-align: center;
+  color: #000;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.section-main .song-list .tools .link{
+  background: #31c27c;
+  color: #fff;
+}
+.section-main .song-list .tools a span{
+  display: inline-block;
+  vertical-align: -5px;
+  margin-right: 5px;
+  width: 18px;
+  height: 18px;
+  background: url(../img/icon_sprite.png) no-repeat;
+  background-size: 200px 340px;
+}
+.section-main .song-list .tools .play span{
+  background-position: -77px -220px;
+}
+.section-main .song-list .tools .add span{
+  background-position: -20px 0px;
+}
+.section-main .song-list .tools .loaddown span{
+  background-position: -40px -220px;
+}
+.section-main .song-list .tools .operate span{
+  background-position: -120px 0px;
+}
+
+
+ 
+.song-list .song .list_menu{
+  position: absolute;
+  line-height: 40px;
+  right: 20px;
+  top: 0;
+	display: none;
+}
+
+.list_menu a{
+	opacity: 1;
+  display: inline-block;
+	width: 36px;
+  height: 36px;
+  margin-top: 10px;
+	background: url(../img/icon_list_menu@2x.png);
+	background-size: 200px 283px;
+}
+.list_menu a:hover{
+	opacity: 1;
+}
+.list_menu a:nth-child(1){
+	background-position: -120px 0;
+}
+.list_menu a:nth-child(2){
+	background-position: -120px -81px;
+}
+.list_menu a:nth-child(3){
+	background-position: -120px -122px;
+}
+.list_menu a:nth-child(4){
+	background-position: -120px -41px;
+}
+.list_menu .list_menu_play2{
+	background-position: -80px -200px !important;
+}
+.content_list .list_singer{
+	width: 20%;
+}
+
+
+section .flex-list{
+  display: flex;
+  width: 100%;
+  padding-top: 20px;
+}
+section .flex-list .list-box{
+  width: 20%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: 20px;
+}
+section .flex-list .list-box .gd-cover{
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+section .flex-list .list-box .gd-cover img{
+  width: 100%; 
+  height: auto;
+  transition: transform 1s;
+}
+section .section-tj::after{
+  display: block;
+  content: "";
+  visibility: hidden;
+  clear: both;
+}
+section .tj-cover {
+  width: 80%;
+  height: 250px;
+  margin: 0 auto;
+}
+section .tj-cover .tj-play {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+section .coverMask:hover .mask {
+  display: block;
+}
+section .coverMask:hover img{
+  transform: scale(1.2)
+}
+section .mask {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+}
+section .mask .play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 74px;
+  width: 74px;
+  margin-left: -37px;
+  margin-top: -37px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIilAAAAAwFBMVEUAAAATExMlJSUHBweRkZH///////9HcEz09PT///////////////8cHBz///+0tLT////////////b29vy8vLv7+////////98fHz///9AQEA3Nzf////Pz8////9lZWXDw8P////////////e3t6bm5vY2Njw8PCxsbH///+5ublgYGBdXV3////////////k5ORdXV0wMDDt7e2mpqb////h4eF4eHhCQkKNjY3JyclPT0/U1NTQ0NDc3Nzg4ODNvLiUAAAAQHRSTlNmaGlnc2F+APCABx95aWR3DVMKe+1+WitxSmtrA3pxb3g+Imh8oNDrr1d4b244OiXbg3Pnp3fYjnmZwn7Lx9R8wCePZgAAAi9JREFUSMell9da3DAQhcdVc9zLFrb3Ql3CsoEEkrz/W+WCJWAsW3J8Lm39n+yZ0dEMCam8wyKNpgEQTKN0cfDkq0jyLLmLXBTkRneJFuz3XABzezY0DSLDHM7sOQC35yth3wEQ31hUkHUTA3D8WjhJgdw2SCLDzoE0qYb7Abo2VcruIuhXwOMBEJtUIzMGBmMZ7DnABSl0AThZGc5W+DMipUY5VtlX2FthYpKGwglWXhEeO5iERJq0My7AA6xN0pS5xuAz3AdGpK0R0P+Ak0Ad52LMg+QffImYGinG5Tu8RDdsBoddLM+wA5sayobzBvvIqbFy+EKQED3Zxpvd9ql+654QJDIXkjN4z8w/H6phA24mSNziSvJyx8x8/FFNX+FWkHBwLXnHb3p9roKv4QjyXFjVMO82lhy24Hp0wJxqYObti5ye40ALeZI/YN49WvJ4LyjFTAEzf/8mWTFDShGGSpg7+3I2h4hoClMNM9+XNjcxpQCGDsy7TalMAgJIC2bef1kCNICPpURrf3Zp5xAn3YBx51ESMK1UyVI9RKRVJNzZW9IiUZcn8++XivJUHoyq2p7joDqSzNvn6iNZbwZ83NSZQYUNndlfD/U2JDfAdw+z6g1Qbr0q9zxbr9z0N8fXJx3Tb3XdtLvoWl2x7S73Vm2FEAOstX87zIsNTbtWSmRNmrhM0j6u/7d9bNe4tmuZ2zXrLccE1YCybDQaWVaj0ajlUPZpHDy57qluHPwLCJFHIPLGbYAAAAAASUVORK5CYII=) no-repeat center center;
+}
+section .tj-cover img {
+  width: 100%;
+  height: 150px;
+  transition: transform 2s;
+}
+
+#list{
+  display: none;
+}

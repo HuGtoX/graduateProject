@@ -1,0 +1,88 @@
+/*右边部分的盒子*/
+@media(max-width: 1080px){
+	.navbar-form{
+		display: none;
+	}
+}	
+@media(max-width: 1000px){
+	.navbar-default{
+		width: 100%;
+	}
+	
+	.banner{
+		.banner-slider{
+			width: 80%;	
+		}
+	}
+	.row > div:nth-child(3){
+		display: none;
+	}
+	.navbar-default{
+		width: 100%;
+	}
+	.mv-main{
+		.mv-main-fr{
+			width: 100%;
+		}
+		width: 100%;
+		.mv-main-fll{
+			margin-right: 0;
+			.mv-group{
+				margin-right: 0;
+				.mv-group-pd{ 
+					
+					margin: 0 auto;
+					.mv{
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+@media (max-width: 760px){
+	.container{
+		padding: 0;
+	}
+	.mv-main{
+		.mv-main-fr{
+			width: 100%;
+		}
+	}
+	
+	.mv-main{
+		width: 100%;
+		.mv-main-fll{
+			margin-right: 0;
+			.mv-group{
+				margin-right: 0;
+				.mv-group-pd{ 
+					padding: 10px 10px;
+					.mv{
+						width: 100%;
+						height: 260px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width:600px){
+	.banner{
+		.banner-slider{
+			width: 100%;
+			height: 180px;
+			.slider-ctrl{
+				.slider-ctrl-prev,
+				.slider-ctrl-next {  
+				    top: -90px;
+				}
+			}
+			
+		}
+	}
+	
+}
