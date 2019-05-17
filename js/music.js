@@ -1,5 +1,5 @@
 $(function(){
-	// 0.自定义滚动条
+  // 0.自定义滚动条
 	$(".content_list").mCustomScrollbar();
 
 	var $audio = $("#aud");
@@ -10,6 +10,7 @@ $(function(){
   var songlistID = sessionStorage.songlistID;
   
   const host = 'http://127.0.0.1:3100';
+  const wyyHost = 'http://127.0.0.1:3000';
 
   var userID;
   //检测是否登录
@@ -32,7 +33,7 @@ $(function(){
   }
 	//获取音乐播放地址
 	function getMusicUrl(music){
-		let linkUrl = "http://127.0.0.1:3000/song/url?id=" + music.id;
+		let linkUrl = wyyHost + "/song/url?id=" + music.id;
 		$.ajax({
 			url:linkUrl,
 			dataType:"json",
@@ -50,7 +51,7 @@ $(function(){
 	getPlayerList(); 
 	function getPlayerList(){
 		$.ajax({
-			url:"http://127.0.0.1:3000/playlist/detail?id=" + songlistID,
+			url:wyyHost + "/playlist/detail?id=" + songlistID,
 			dataType:"json",
 			success:function(data){
 				data = data.playlist.tracks;
@@ -73,13 +74,13 @@ $(function(){
 	}
   //1.1初始化歌单列表
   function initList(id){
-    console.log(id);
+  
     $.ajax({
       type:"GET",
       url:host + "/api/list/search?userID=" + id ,
       dataType:'json',
       success:function(data){
-        console.log(data);
+       
         let $addList_ul = $(".addList_ul");
         $.each(data.data,function(index,ele){
           var $item = creatMusicList(index,ele);
@@ -122,7 +123,7 @@ $(function(){
 
 	//3.初始化歌词信息
 	function initMusicLyric(music){
-		let linkUrl = "http://127.0.0.1:3000/lyric?id=" + music.id;
+		let linkUrl = wyyHost + "/lyric?id=" + music.id;
 	
 		lyric = new Lyric(linkUrl);
 		var $lyricContainer = $(".song_lyric");
@@ -156,22 +157,24 @@ $(function(){
 		var $voiceDot = $(".music_voice_dot");
 		voiceProgress = Progress($voiceBar,$voiceLine,$voiceDot);
 		voiceProgress.progressClick(function(value){
-			player.musicVoiceSeekTo(value);
+      player.musicVoiceSeekTo(value);
+      window.volume = value;
 		});
 		voiceProgress.progressMove(function(value){
-			player.musicVoiceSeekTo(value);
+      player.musicVoiceSeekTo(value);
+      window.volume = value;
 		});
   }
   
   //3.1 歌单列表
   function addList(music){
     
-    $(".newList").on('click',function(){
+    $(".newList").on('click',function(){  //新建歌单点击事件
       $(".addlist").css({
         display:"block"
       })
     })
-    $(".addList_ul").delegate(".add","click",function(){
+    $(".addList_ul").delegate(".add","click",function(){   //自有歌单点击事件
         let $item = $(this).parent(".addLi");
         let listID = $item.get(0).music.id;
         $.ajax({
@@ -179,18 +182,17 @@ $(function(){
           dataType:'json',
           url:host + "/api/list/addsong?listID=" + listID + "&songID=" + music.id,
           success:function(data){
-            console.log(data);
+          
           },
           error:function(e){
             console.log(e);
           }
         })
     })
-    $(".addlist .request").on('click',function(){
+    $(".addlist .request").on('click',function(){ //新建歌单确定按钮点击事件
       let name = $(".listname").val();
       let img = music.al.picUrl;
       let id = userID;
-      alert(name + "  " + img + "  " + userID);
       $.ajax({
         url:host + "/api/list/create",
         type:"POST",
@@ -200,14 +202,14 @@ $(function(){
           imgUrl:img
         },
         success:function(data){
-          window.location.reload();
+          window.location.reload(); //歌单创建成功后刷新页面
         },
         error:function(err){
           alert(err.responseJSON.message);
         }
       }) 
     })
-    $(".addlist .cancel").on('click',function(){
+    $(".addlist .cancel").on('click',function(){  //歌单创建取消按钮点击事件
       $(".addlist").css({
         display:"none"
       })
@@ -357,7 +359,35 @@ $(function(){
 				marginTop:(-index + 2)*30
 			});
 		});
-			
+    
+    //8.1监听歌曲播放完毕
+    player.musicEnded(function(mode){
+      
+			// 3.2复原其他的播放图标
+      $(".list_menu_play").removeClass("list_menu_play2");
+
+			// 复原其他序号状态
+      $(".list_number").removeClass("list_number2");
+				// 切换序号状态
+
+			//复原其他文字颜色
+			$(".list_music").find("div").css("color","rgba(255,255,255,0.5)");
+
+      if(mode == "loop"){
+        //$(".list_music").eq(player.currentIndex).find(".list_menu_play").trigger("click");
+        // $(".music_next").trigger('click');
+        // $(".music_pre").trigger('click');
+        $(".music_play").trigger('click');
+      }
+      else if(mode == "order"){
+        $(".music_next").trigger('click');
+      }
+      else{
+        player.currentIndex = Math.round(Math.random()*(player.musicList.length - 1));
+        $(".music_next").trigger('click');
+      }
+      
+    })
 		//9.监听声音按钮的点击
 		$(".music_voice_icon").click(function(){
 			$(this).toggleClass("music_voice_icon2");
@@ -365,9 +395,26 @@ $(function(){
 				//变为没声音
 				player.musicVoiceSeekTo(0);
 			}else{
-				player.musicVoiceSeekTo(1);
+				player.musicVoiceSeekTo(volume);
 			}  	 	
-		});
+    });
+    
+    //9.1监听播放模式
+    $(".mode_change").on('click',function(){
+      let count = 0;
+      if($(this).hasClass("music_mode")){
+        $(this).removeClass("music_mode").addClass("music_mode2");
+        player.playMode = "order";
+      }
+      else if($(this).hasClass("music_mode2")){
+        $(this).removeClass("music_mode2").addClass("music_mode3");
+        player.playMode = "other";
+      }else{
+        $(this).removeClass("music_mode3").addClass("music_mode");
+        player.playMode = "loop";
+      }
+      
+    })
   }
   //定义一个方法创建一条歌单
   function creatMusicList(index,list){

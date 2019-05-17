@@ -3,7 +3,8 @@
 		return new Player.prototype.init($audio);
 	}
 	Player.prototype = {
-		constructor:Player,
+    constructor:Player,
+    playMode:"loop",
 		musicList:[],
 		link_url:"",
 		init:function($audio){
@@ -59,7 +60,7 @@
 				this.currentIndex = this.currentIndex - 1;
 			}
 		},
-		musicTimeUpdate:function(callBack){
+		musicTimeUpdate:function(callBack){ //当目前的播放位置已更改时
 			var $this = this;
 			this.$audio.on("timeupdate",function(){
 				var duration = $this.audio.duration;
@@ -68,7 +69,13 @@
 				
 				callBack(currentTime,duration,timeStr);
 			});
-		},
+    },
+    musicEnded:function(callBack){ //当目前的播放列表已结束时
+      let $this = this;
+      this.$audio.on("ended",function(){
+        callBack($this.playMode);
+      })
+    },
 		formatDate:function(currentTime,duration){
 			
 			var endMin = parseInt(duration / 60); // 2

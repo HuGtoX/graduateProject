@@ -1,5 +1,6 @@
 $(function(){
   const host = 'http://127.0.0.1:3100';
+  const wyyHost = 'http://127.0.0.1:3000';
   
 
   console.log(sessionStorage.token)
