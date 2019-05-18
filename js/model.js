@@ -1,4 +1,5 @@
-   const host = 'http://127.0.0.1:3100';
+   console.log("test");
+   let host = "http://127.0.0.1:3100"
   $(".nav-box").load("./model/head.html", function(){
     let pathname = document.location.pathname;
     switch(pathname){
@@ -10,9 +11,9 @@
   });
       $(".footer").load("./model/foot.html");
       $(".login").load("./model/login.html",function(){
-        window.login();
+        window.login(); 
       });
-
+  
 
   function changeLogin(data){
     $("#login").css({
@@ -24,9 +25,9 @@
     // $(".nav-box .userInfo span").text(data.data.username)
 
    }
-
+   console.log("test2");
    function isLogin(fun){
-   
+    console.log("test3");
     $.ajax({
       type:'POST',
       url:host + '/users',

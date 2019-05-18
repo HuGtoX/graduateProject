@@ -12,7 +12,7 @@ $(function(){
 	var $controls = $(".controls"); //视频控制条
 
 	var player = new Player($video);
- 
+  let progress;
   const host = 'http://127.0.0.1:3100';
   
 
@@ -48,8 +48,17 @@ $(function(){
 		})
 		voiceProgress.progressMoveY(function(value){
 			player.musicVoiceSeekTo(value);
-		});
-	}
+    });
+    
+    	//3.视频播放时运行
+	player.musicTimeUpdate(function(currentTime,duration,timeStr){
+		 	
+    current_time.innerHTML = timeStr;
+
+    var value = currentTime / duration * 100;
+    progress.setProgress(value);
+    })
+  }
 	
 	//2.切换视频页面的图标
 	function changeIcon(){
@@ -63,14 +72,7 @@ $(function(){
 
 	}
 	
-	//3.视频播放时运行
-	player.musicTimeUpdate(function(currentTime,duration,timeStr){
-		 	
-			current_time.innerHTML = timeStr;
 
-			var value = currentTime / duration * 100;
-			progress.setProgress(value);
-	})
 	
 
 
