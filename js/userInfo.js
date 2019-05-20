@@ -1,34 +1,12 @@
 $(function(){
-  const host = 'http://127.0.0.1:3100';
+  const host = 'http://119.23.240.101:3200';
   const wyyHost = 'http://127.0.0.1:3000';
   
 
   console.log(sessionStorage.token)
   //0.检测是否登录
-  // changeLi();
   isLogin(getUserInfo);
-  // function isLogin(){
 
-  //   $.ajax({
-  //     type:'POST',
-  //     url:host + '/users',
-  //     data:{
-  //       authorization:sessionStorage.token
-  //     },
-    
-  //     success:function(data){
-  //        $(".username").text(data.data.username);
-  //        //改变登录状态
-  //        changeLogin(data);
-  //        //获取用户信息
-  //        getUserInfo(data.data.id)
-  //     },
-  //     error:function(e){
-  //       console.log(e);
-  //     }
-  //   })
-    
-  // }
   
   $(".nav-inner a").on("click",function(){
     let index = $(this).index();
@@ -43,15 +21,6 @@ $(function(){
 
   })
 
-
-  // function changeLi(){
-  //   let pathname = document.location.pathname;
-  //   switch(pathname){
-  //     case '/index.html': $(".nav_li").eq(0).addClass("active"); break;
-  //     case '/userInfo.html':$(".nav_li").eq(1).addClass("active"); break;  
-  //     default: console.log("rr");
-  //   }
-  // }
   
   function getUserInfo(data){
     $(".username").text(data.data.user)

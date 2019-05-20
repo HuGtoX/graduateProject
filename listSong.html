@@ -11,15 +11,19 @@
   <link rel="stylesheet" href="css/listSong.css">
   <link rel="stylesheet" href="css/model.css">
   <script src="/js/jquery-3.3.1.js"></script>
+  <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="/js/login.js"></script>
   <script src="/js/bootstrap.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 </head>
 <body>
   <header>
     <div class="nav-box">
     </div>
   </header>
-  <div class="list-head">
+  <div class="list-head" id="app">
     <div class="head-left">
       <img src="img/banner.jpg" alt="">
     </div>
@@ -57,11 +61,12 @@
               </div>
             </div>
     </section>    
-    <footer class="footer">
-    </footer>
+    <audio src="" id="#aud"></audio>
+    <!-- <footer class="footer">
+    </footer> -->
     <div class="login">
     </div>
-    
     <script src="/js/model.js"></script>
+    <script src="/js/listSong.js"></script>
 </body>
 </html>

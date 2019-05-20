@@ -9,44 +9,29 @@ $(function(){
 	var lyric;
   var songlistID = sessionStorage.songlistID;
   
-  const host = 'http://127.0.0.1:3100';
-  const wyyHost = 'http://127.0.0.1:3000';
+  const host = 'http://119.23.240.101:3200';
+  const wyyHost = 'http://119.23.240.101:3000';
 
   var userID;
   //检测是否登录
-  isLogin();
-  function isLogin(){
-    $.ajax({
-      type:'POST',
-      url:host + '/users',
-      data:{
-        authorization:sessionStorage.token
-      },
-      success:function(data){
-        userID = data.data.id;
-        initList(userID);
-      },
-      error:function(e){
-        console.log(e);
-      }
-    })
-  }
-	//获取音乐播放地址
-	function getMusicUrl(music){
-		let linkUrl = wyyHost + "/song/url?id=" + music.id;
-		$.ajax({
-			url:linkUrl,
-			dataType:"json",
-			success:function(data){
-				var musicUrl = data.data[0].url;
-				music.link_url = musicUrl;
-			},
-			error:function(e){
-				console.log(e);
-			}
-		})
+  isLogin(initList);
+  // function isLogin(){
+  //   $.ajax({
+  //     type:'POST',
+  //     url:host + '/users',
+  //     data:{
+  //       authorization:sessionStorage.token
+  //     },
+  //     success:function(data){
+  //       userID = data.data.id;
+  //       initList(userID);
+  //     },
+  //     error:function(e){
+  //       console.log(e);
+  //     }
+  //   })
+  // }
 
-	}
 	// 1.加载歌曲列表
 	getPlayerList(); 
 	function getPlayerList(){
@@ -62,7 +47,7 @@ $(function(){
 				$.each(data,function(index,ele){
 					var $item = createMusicItem(index,ele);
 					$musicList.append($item);
-					getMusicUrl(ele);
+					musicObj.getMusicUrl(ele);
 				});
 				initMusicInfo(data[0]);
 				initMusicLyric(data[0]);
@@ -73,11 +58,11 @@ $(function(){
 		});
 	}
   //1.1初始化歌单列表
-  function initList(id){
-  
+  function initList(data){
+    userID = data.data.id;
     $.ajax({
       type:"GET",
-      url:host + "/api/list/search?userID=" + id ,
+      url:host + "/api/list/search?userID=" + userID ,
       dataType:'json',
       success:function(data){
        
@@ -182,7 +167,7 @@ $(function(){
           dataType:'json',
           url:host + "/api/list/addsong?listID=" + listID + "&songID=" + music.id,
           success:function(data){
-          
+            console.log(data);
           },
           error:function(e){
             console.log(e);

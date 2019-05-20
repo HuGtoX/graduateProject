@@ -1,38 +1,57 @@
-$(function(){
-  // 0.自定义滚动条
-  isLogin();
-  $(".content_list").mCustomScrollbar();
-  
-  function getMusic(){
-    let listID = ((window.location.search).slice(1)).split("=")[1];
-    console.log(listID);
-    $.ajax({
 
+$(function(){
+  $(".content_list").mCustomScrollbar();
+  var $audio = $("#aud");
+  let player = new Player($audio);  
+  // 0.自定义滚动条
+  isLogin(getMusic);
+  
+  //获取歌单中全部歌曲ID
+  function getMusic(data){
+    let listID = ((window.location.search).slice(1)).split("=")[1];
+    $.ajax({
+      url:host + '/api/list/searchsong?listID=' + listID,
+      success:function(res){
+          let song = res.data;
+          getWyyMusic(song);
+      },
+      error:function(e){
+        console.log(e);
+      }
     })
   }
 
-  //定义一个方法创建一条音乐  
-  function createMusicItem(index,music){
-		let time = player.formatDate2(music.dt);
-		var $item = $("<li class=\"list_music\">\n"+
-				"<div class=\"list_check\"><i></i></div>\n"+
-				"<div class=\"list_number\">"+(index+1)+"</div>\n"+
-				"<div class=\"list_name\">"+music.name+""+
-					"<div class=\"list_menu\">\n"+
-						"<a href=\"javascript:;\" title=\"播放\" class='list_menu_play'></a>	\n"+	
-						"<a href=\"javascript:;\" title=\"添加\" class=\"musicAdd\"></a>	\n"+	
-						"<a href=\"javascript:;\" title=\"下载\"></a>	\n"+	
-						"<a href=\"javascript:;\" title=\"分享\"></a>	\n"+	
-					"</div>\n"+
-				"</div>\n"+
-				"<div class=\"list_singer\">"+music.ar[0].name+"</div>\n"+
-				"<div class=\"list_time\">\n"+
-					"<span>"+time+"</span>\n"+
-					"<a href=\"javascript::\" title=\"删除\" class=\"list_menu_del\"></a>\n"+
-				"</div>\n"+
-			"</li>");
-		$item.get(0).index = index;
-		$item.get(0).music = music;
-		return $item;
-	}
+  //初始化音乐列表
+  function getWyyMusic(data){
+    let songArr = [];
+    $.each(data,function(i,n){
+      songArr.push(n.songID);
+    })
+    let ids = songArr.join();
+    console.log(ids);
+    $.ajax({
+      url:wyyHost + '/song/detail?ids=' + ids,
+      success:function(res){
+        data = res.songs;
+        player.musicList = data;
+        // 1.1遍历获取到的数据，创建每一条音乐
+        let $musicList = $(".content_list ul");
+        $.each(data,function(index,ele){
+          let $item = musicObj.createMusicItem(index,ele,player);
+          $musicList.append($item);
+          musicObj.getMusicUrl(ele); //获取播放地址
+        })
+      },
+      error:function(e){
+        console.log(e);
+      }
+    })
+  }
+
+  //初始化事件监听
+  initEvents();
+  function initEvents(){
+    musicObj.initEvents();//初始化事件监听的封装
+  }
+
 })

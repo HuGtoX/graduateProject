@@ -13,7 +13,7 @@ $(function(){
 
 	var player = new Player($video);
   let progress;
-  const host = 'http://127.0.0.1:3100';
+  const host = 'http://119.23.240.101:3200';
   
 
   console.log(sessionStorage.token)
@@ -50,37 +50,75 @@ $(function(){
 			player.musicVoiceSeekTo(value);
     });
     
-    	//3.视频播放时运行
-	player.musicTimeUpdate(function(currentTime,duration,timeStr){
+    //3.视频播放时运行
+	  player.musicTimeUpdate(function(currentTime,duration,timeStr){
 		 	
     current_time.innerHTML = timeStr;
 
     var value = currentTime / duration * 100;
     progress.setProgress(value);
     })
+    let f = true;
+    let mv = $(".mv").get(0);
+    //4.全屏播放
+    $(".full").on('click',function(){
+      
+      if(f){
+        fullScreen(mv);
+      }else{
+        exitScreen(mv);
+      }
+      f = !f;
+    })
   }
 	
-	//2.切换视频页面的图标
-	function changeIcon(){
+	 //2.切换视频页面的图标
+	function changeIcon(){  //转换播放器图标
 		if(video.paused){
-			play_big.style.display = "block";
-			play_sm.className = "play-sm";
-		}else{
-			play_big.style.display = "none";
-			play_sm.className = "pause-sm";
-		}
+			  play_big.style.display = "block";
+			  play_sm.className = "play-sm";
+		  }else{
+		  	play_big.style.display = "none";
+		  	play_sm.className = "pause-sm";
+		  }
+	  }
 
-	}
-	
 
-	
+    function fullScreen(el){  //全屏
+      var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;      
+          if(typeof rfs != "undefined" && rfs) {
+              rfs.call(el);
+          };
+        return;
+    }
+    function exitScreen(el){ //退出全屏
+      if (document.exitFullscreen) {  
+          document.exitFullscreen();  
+      }  
+      else if (document.mozCancelFullScreen) {  
+          document.mozCancelFullScreen();  
+      }  
+      else if (document.webkitCancelFullScreen) {  
+          document.webkitCancelFullScreen();  
+      }  
+      else if (document.msExitFullscreen) {  
+          document.msExitFullscreen();  
+      } 
+      if(typeof cfs != "undefined" && cfs) {
+          cfs.call(el);
+      }
+  }
 
+  
+ 
 
 	//4.当鼠标进入视频界面时显示控制条
 	$(".mv").hover(function(){
+    var timer = null;
 		$(".controls").stop();
-		$(".controls").animate({bottom:0},"normal");
+    $(".controls").animate({bottom:0},"normal");
 	},function(){
+    $("body").off('mousemove');
 		$(".controls").stop();
 		$(".controls").delay(1000).animate({bottom:'-37px'},"slow");
 	})
@@ -108,7 +146,7 @@ $(function(){
 				if(keychar==" " || keynum==32){
 					player.playMV();
 				}
-
+        changeIcon();
 			}
 			//阻止冒泡
 			var event = event || window.event;

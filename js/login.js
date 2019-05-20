@@ -10,7 +10,8 @@
 
 	$("#login a").on('click',function(){
 		$(".login").css("display","flex");
-		$("body").addClass("bodyStyle");
+    $("body").addClass("bodyStyle");
+    console.log("ddddd");
   })
   
   $(".loginMode").on('click',function(){
@@ -45,7 +46,7 @@
       else{
         $.ajax({
           type:'POST',
-          url:'http://127.0.0.1:3100/users/register',
+          url:'http://119.23.240.101:3200/users/register',
           dataType:'json',
           data:{
             user:username,
@@ -86,7 +87,7 @@
     else{
       $.ajax({
         type:'POST',
-        url:'http://127.0.0.1:3100/users/login',
+        url:'http://119.23.240.101:3200/users/login',
         dataType:'json',
         data:{
           user:username,
