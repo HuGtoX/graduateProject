@@ -20,7 +20,6 @@ spans[1].classList.add("current"); //为第一个按钮添加current
 // spans[0].setAttribute("class","slider-ctrl-con current") 
 
 scrollWidth = banner_slider.scrollWidth; //获取最大盒子的宽度
-console.log(scrollWidth);
 
 for(var i=1; i<slider_img.length;i++){
 	slider_img[i].style.left = scrollWidth + "px"; //将第一张图片外的所有图片右移
