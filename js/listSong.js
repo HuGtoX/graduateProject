@@ -37,7 +37,7 @@ $(function(){
         // 1.1遍历获取到的数据，创建每一条音乐
         let $musicList = $(".content_list ul");
         $.each(data,function(index,ele){
-          let $item = musicObj.createMusicItem(index,ele,player);
+          let $item = musicObj.createMusicItem(index,ele);
           $musicList.append($item);
           musicObj.getMusicUrl(ele); //获取播放地址
         })

@@ -29,6 +29,7 @@ section .section-tj .num{
 }
 section .flex-list{
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 section .flex-list .list-box{

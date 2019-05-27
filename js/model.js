@@ -1,6 +1,5 @@
-
-   var host = "http://119.23.240.101:3200"
-   var wyyHost = "http://119.23.240.101:3000"
+  var host = "http://119.23.240.101:3200"
+  var wyyHost = "http://119.23.240.101:3000"
 
   $(".nav-box").load("./model/head.html", function(){
     let pathname = document.location.pathname;
@@ -14,7 +13,6 @@
   $(".footer").load("./model/foot.html");
   $(".login").load("./model/login.html",function(){
         login(); 
-        console.log("kkkk");
   });
 
   //初始化登录注册监听事件
@@ -23,31 +21,30 @@
     $(".logout").on("click",function(){
      sessionStorage.token = '';
      window.location.reload();
-   })
- 
-   $("#login a").on('click',function(){
+    })
+    //0.2. 登录
+    $("#login a").on('click',function(){
      $(".login").css("display","flex");
      $("body").addClass("bodyStyle");
-     console.log("ddddd");
-   })
-   
-   $(".loginMode").on('click',function(){
+    })
+    //0.3 登录模块
+    $(".loginMode").on('click',function(){
      $(".registerform").removeClass("show")
      $(".loginform").addClass("show")
-   })
- 
-   $(".registerMode").on('click',function(){
+    })
+    //0.4 注册模块
+    $(".registerMode").on('click',function(){
      $(".loginform").removeClass("show")
      $(".registerform").addClass("show")
-   })
- 
-   $(".close").on('click',function(){
+    })
+    //0.5 关闭按钮
+    $(".close").on('click',function(){
      $(".login").css("display","none");
      $("body").removeClass("bodyStyle");
-   })
+    })
   
-  // 点击触发登录事件
-  $('.login_btn').on('click',function(){
+    // 点击触发登录事件
+    $('.login_btn').on('click',function(){
     let username = $('.loginform input[name="username"]').val();
     let password = $('.loginform input[name="password"]').val();
 
@@ -57,7 +54,6 @@
     else if(password == ''){
       alert('请输入密码')
     }
-
     else{
       $.ajax({
         type:'POST',
@@ -75,58 +71,71 @@
         },
         error:function(e){
           alert('密码或账号错误');
-          console.log(e)
-          window.location.reload()
         }
-      })
+      })  
     }
    
-})
+    })
+    //点击注册按钮触发事件
+    $('.register_btn').on('click',function(){
+    let username = $('.registerform input[name="username"]').val();
+    let password = $('.registerform input[name="password"]').val();
+    let name = $('.registerform input[name="name"]').val();
+    if(username == ''){
+      alert('请输入账号')
+    }
+    else if(password == ''){
+      alert('请输入密码')
+    }
+    else if(name == ''){
+      alert('not allow empty')
+    }
+    else{
+      $.ajax({
+      type:'POST',
+      url:'http://119.23.240.101:3200/users/register',
+      dataType:'json',
+      data:{
+        user:username,
+        password:password,
+        name:name
+      }
+      ,
+      success:function(data){
+        console.log(data);
+        alert("注册成功");
+        $('.registerform input[name="username"]').val("");
+        $('.registerform input[name="password"]').val("");
+        $('.registerform input[name="name"]').val("");
+      },
+      error:function(e){
+        alert(e.responseJSON.msg);
+        $('.registerform input[name="username"]').val("");
+        $('.registerform input[name="password"]').val("");
+        $('.registerform input[name="name"]').val("");
+      }
+      })
+    }
+  
+    })
+
+  // 注册模块的姓名输入框监听事件
+    $('.registerform input[name="name"]').on('keyup',function(e){
+    var keynum = window.event ? e.keyCode : e.which;
+    if(keynum==100 || keynum==13){
+      $('.register_btn').trigger('click')
+    }
+    })
+  // 登录模块的姓名输入框监听事件
+    $('.loginform input[name="password"]').on('keyup',function(e){
+    var keynum = window.event ? e.keyCode : e.which;
+    if(keynum==100 || keynum==13){
+      $('.login_btn').trigger('click')
+    }
+    })
 
   }
    
-   //点击注册按钮触发事件
-   $('.register_btn').on('click',function(){
-       let username = $('.registerform input[name="username"]').val();
-       let password = $('.registerform input[name="password"]').val();
-       let name = $('.registerform input[name="name"]').val();
-       if(username == ''){
-         alert('请输入账号')
-       }
-       else if(password == ''){
-         alert('请输入密码')
-       }
-       else if(name == ''){
-         alert('not allow empty')
-       }
-       else{
-         $.ajax({
-           type:'POST',
-           url:'http://119.23.240.101:3200/users/register',
-           dataType:'json',
-           data:{
-             user:username,
-             password:password,
-             name:name
-           }
-           ,
-           success:function(data){
-             console.log(data);
-             alert("注册成功");
-             $('.registerform input[name="username"]').val("");
-             $('.registerform input[name="password"]').val("");
-             $('.registerform input[name="name"]').val("");
-           },
-           error:function(e){
-             alert(e.responseJSON.msg);
-             $('.registerform input[name="username"]').val("");
-             $('.registerform input[name="password"]').val("");
-             $('.registerform input[name="name"]').val("");
-           }
-         })
-       }
-       
-   })
   //改变登录状态
   function changeLogin(data){
     $("#login").css({
@@ -136,9 +145,9 @@
       display:"inline-block"
     })
    }
+
   //判断是否有用户登录
    function isLogin(fun){
-    console.log("test3");
     $.ajax({
       type:'POST',
       url:host + '/users',
@@ -148,7 +157,9 @@
       success:function(data){
         changeLogin(data); 
         //若有回调函数则传回数据并执行
-        fun(data);
+        if(typeof(fun) == 'function'){
+          fun(data);
+        }
       },
       error:function(e){
         console.log(e);
@@ -156,10 +167,26 @@
     })
   }
 
+  //播放类
   var musicObj = {
+
+    //格式化歌曲时间
+    formatDate:function(duration){
+			var time = parseInt(duration / 1000);
+			var endMin = parseInt(time / 60); // 2
+			var endSec = parseInt(time % 60);
+			if(endMin < 10){
+				endMin = "0" + endMin;
+			}
+			if(endSec < 10){
+				endSec = "0" + endSec;
+			}
+ 
+			return endMin+":"+endSec;
+		},
     //创建歌曲列表
-    createMusicItem:function(index,music,player){
-      let time = player.formatDate2(music.dt);
+    createMusicItem:function(index,music){
+      let time = this.formatDate(music.dt);
       var $item = $("<li class=\"list_music\">\n"+
           "<div class=\"list_check\"><i></i></div>\n"+
           "<div class=\"list_number\">"+(index+1)+"</div>\n"+
@@ -251,6 +278,34 @@
         }
       })
     },
+    
 
+  }
 
+  // 工具类
+  var tools = {
+
+  }
+  //$.ajax封装
+  function ajax(url,fun,data,method){
+    $.ajax({
+      url:url,
+      method:method,
+      success:function(data){
+        fun(data)
+      },
+      error:function(e){
+        console.log(e)
+      }
+    })  
+  }
+
+  //监听键盘事件
+  function keyListener(e,fun,n,m){
+    console.log(e)
+    var keynum;
+		keynum = window.event ? e.keyCode : e.which;
+		if(keynum==n || keynum==m){
+			fun()
+		}
   }

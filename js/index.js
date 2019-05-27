@@ -13,7 +13,7 @@ $(function(){
 
 	var player = new Player($video);
   let progress;
-  const host = 'http://119.23.240.101:3200';
+
   
 
   console.log(sessionStorage.token)
@@ -81,32 +81,32 @@ $(function(){
 		  	play_big.style.display = "none";
 		  	play_sm.className = "pause-sm";
 		  }
-	  }
+	}
 
 
-    function fullScreen(el){  //全屏
-      var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;      
-          if(typeof rfs != "undefined" && rfs) {
-              rfs.call(el);
-          };
-        return;
+  function fullScreen(el){  //全屏
+    var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;      
+    if(typeof rfs != "undefined" && rfs) {
+        rfs.call(el);
+    };
+    return;
+  }
+  function exitScreen(el){ //退出全屏
+    if (document.exitFullscreen) {  
+      document.exitFullscreen();  
+    }  
+    else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    }  
+    else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }  
+    else if (document.msExitFullscreen) {  
+      document.msExitFullscreen();  
+    } 
+    if(typeof cfs != "undefined" && cfs) {
+      cfs.call(el);
     }
-    function exitScreen(el){ //退出全屏
-      if (document.exitFullscreen) {  
-          document.exitFullscreen();  
-      }  
-      else if (document.mozCancelFullScreen) {  
-          document.mozCancelFullScreen();  
-      }  
-      else if (document.webkitCancelFullScreen) {  
-          document.webkitCancelFullScreen();  
-      }  
-      else if (document.msExitFullscreen) {  
-          document.msExitFullscreen();  
-      } 
-      if(typeof cfs != "undefined" && cfs) {
-          cfs.call(el);
-      }
   }
 
   

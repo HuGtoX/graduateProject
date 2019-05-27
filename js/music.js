@@ -15,22 +15,7 @@ $(function(){
   var userID;
   //检测是否登录
   isLogin(initList);
-  // function isLogin(){
-  //   $.ajax({
-  //     type:'POST',
-  //     url:host + '/users',
-  //     data:{
-  //       authorization:sessionStorage.token
-  //     },
-  //     success:function(data){
-  //       userID = data.data.id;
-  //       initList(userID);
-  //     },
-  //     error:function(e){
-  //       console.log(e);
-  //     }
-  //   })
-  // }
+ 
 
 	// 1.加载歌曲列表
 	getPlayerList(); 
@@ -45,7 +30,7 @@ $(function(){
 				// 1.1遍历获取到的数据，创建每一条音乐
 				var $musicList = $(".content_list ul");
 				$.each(data,function(index,ele){
-					var $item = createMusicItem(index,ele);
+					var $item = musicObj.createMusicItem(index,ele);
 					$musicList.append($item);
 					musicObj.getMusicUrl(ele);
 				});
@@ -57,7 +42,7 @@ $(function(){
 			}
 		});
 	}
-  //1.1初始化歌单列表
+  //1.1初始化用户创建的歌单列表
   function initList(data){
     userID = data.data.id;
     $.ajax({
@@ -408,30 +393,6 @@ $(function(){
 		$item.get(0).music = list;
 		return $item;
   }
-	//定义一个方法创建一条音乐
-	function createMusicItem(index,music){
-		let time = player.formatDate2(music.dt);
-		var $item = $("<li class=\"list_music\">\n"+
-							"<div class=\"list_check\"><i></i></div>\n"+
-							"<div class=\"list_number\">"+(index+1)+"</div>\n"+
-							"<div class=\"list_name\">"+music.name+""+
-								"<div class=\"list_menu\">\n"+
-									"<a href=\"javascript:;\" title=\"播放\" class='list_menu_play'></a>	\n"+	
-									"<a href=\"javascript:;\" title=\"添加\" class=\"musicAdd\"></a>	\n"+	
-									"<a href=\"javascript:;\" title=\"下载\"></a>	\n"+	
-									"<a href=\"javascript:;\" title=\"分享\"></a>	\n"+	
-								"</div>\n"+
-							"</div>\n"+
-							"<div class=\"list_singer\">"+music.ar[0].name+"</div>\n"+
-							"<div class=\"list_time\">\n"+
-								"<span>"+time+"</span>\n"+
-								"<a href=\"javascript::\" title=\"删除\" class=\"list_menu_del\"></a>\n"+
-							"</div>\n"+
-						"</li>");
-		$item.get(0).index = index;
-		$item.get(0).music = music;
-		return $item;
-	}
 
 	$(document).click(function(){
     $(".addList").css({

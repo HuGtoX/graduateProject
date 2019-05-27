@@ -1,6 +1,10 @@
 const path = require('path');
 
 module.exports = {
+  devServer: {
+   contentBase: './dist',
+   port: 9000
+  },
   mode:'development',
   //入口文件
   entry:'./index.js',
@@ -15,10 +19,15 @@ module.exports = {
         use:[ 'style-loader','css-loader']
       },
       {
-        test:/\.(png|svg|jpg|gif|ico|woff|woff2|eot|ttf)$/,
+        test:/\.(png|svg|jpg|gif|ico)$/,
         loader:'url-loader?limit=1024&name=[path][name].[ext]&publicPath=dist/'
       },
-     
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ]
+      }
     ]
   }
 }

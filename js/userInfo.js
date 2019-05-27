@@ -65,4 +65,18 @@ $(function(){
   $item.get(0).music = music;
   return $item;
   }
+  
+  var temp = `<li class="list-content">
+  <div class="song">${a}
+    <div class="list_menu">
+      <a href="#" class='list_menu_play'></a>
+      <a href="#"></a>
+      <a href="#"></a>
+      <a href="#"></a>
+    </div>
+  </div>
+  <div class="singer">${a}</div>
+  <div class="album">${a}</div>
+  <div class="time">${a}</div>
+  </li>`  
 })
