@@ -23,11 +23,11 @@ module.exports = {
         loader:'url-loader?limit=1024&name=[path][name].[ext]&publicPath=dist/'
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        test: /\.(svg|woff|woff2|eot|ttf|otf)$/,
         use: [
-          'file-loader'
+          'url-loader'
         ]
-      }
+      },
     ]
   }
 }

@@ -6,18 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <!-- <link rel="stylesheet" href="css/login.css"> -->
-    <!-- <link rel="stylesheet" href="css/header.css"> -->
-    <!-- <link rel="stylesheet" href="css/model.css"> -->
     <script src="/dist/bundle.js"></script>
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/js/player.js"></script>
     <script src="/js/progress.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
-  
 </head>
 <body>
+  
 	<div class="container">
 		<header>
 			<!-- 头部导航条部分 -->
@@ -68,12 +65,17 @@
 			<div class="section-head">
           <h1 class="title">新歌推荐</h1>
 				<div class="section-tj">
-					<div class="col-sm-6 col-md-3 album" v-for="item in list">
+					<div class="col-sm-6 col-md-3 album" v-for="(item,index) in list" :key="index">
 						<div class="tj-cover">
 							<div class="tj-play coverMask">
 								<img :src=item.song.album.picUrl alt="">
 								<div class="mask">
-									<a href="javascript:;" class="play" @click="musicPlay(item.id)"></a>
+                  <a 
+                    href="javascript:;" 
+                    class="play" 
+                    :class="{pause:num == index}" 
+                    @click="musicPlay(item.id,index)"
+                    ></a>
 								</div>
 							</div>
 							
@@ -89,7 +91,7 @@
 				</div>
 			</div>
     </section>
-
+    
 		<!-- 每日MV推荐 -->
 		<section id="mv">
 			<h2>每日MV</h2>
@@ -203,6 +205,9 @@
 	<script src="/js/index.js"></script>
 	<script>
     axios.defaults.baseURL = 'http://119.23.240.101:3000';
+    axios.defaults.withCredentials = true;
+    Vue.config.devtools = true;
+    // let player = new Player()
     var mv = new Vue({
       el:"#mv",
       data:{
@@ -234,13 +239,16 @@
 				getListInfo(){
 					axios.get('/top/playlist',{
 						params:{
-              limit:5
+              limit:5,
+              order:'hot'
 						}
 					}).then(res => {
-						for(var i=0; i<5; i++){
-							this.list.push(res.data.playlists[i])
-						}
-						console.log(this.list)
+            res = res.data.playlists
+            console.log(res)
+            res.forEach(item => {
+              this.list.push(item)
+            });
+			
 					})
 				},
 				musicPlay(id){
@@ -262,8 +270,9 @@
 			el:'#app',
 			data:{
         list:[],
-        listGD:[],
-				url:'',
+				url:'',         //歌曲地址
+        songID:0,
+        num:null,          //列表索引
 				player:null
 			},
 			created(){
@@ -278,21 +287,35 @@
 					}).then(res => {
 						for(var i=0; i<8; i++){
 							this.list.push(res.data.result[i])
-						}
-						console.log(this.list)
+            }
+            console.log(this.list)
 					})
 				},
-				musicPlay(id){
+				musicPlay(id,index){
 					axios.get('/song/url',{
 						params:{
 							id:id
 						}
 					}).then(res => {
-						this.player = this.$refs.player
-						this.$refs.player.setAttribute("src",res.data.data[0].url)
-						play();
+            this.player = this.$refs.player
+            if(this.songID != id){
+              this.$refs.player.setAttribute("src",res.data.data[0].url)
+            }
+            this.play(index);
+            this.songID = id
 					})
-				}
+				},
+        play(index){
+            if(this.player.paused){
+              this.pause = true
+              this.num = index
+              this.player.play()
+            }else{
+              this.pause = false
+              this.num = null
+              this.player.pause()
+            }
+          },
 			}
 		})
 	</script>
